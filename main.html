@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-camera position="0 1.6 5">
+        <a-entity
+          cursor
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+          material="color: black; shader: flat; opacity: 0.5"
+          animation__click="property: scale; 
+                            startEvents: click; 
+                            easing: easeInCubic; 
+                            dur: 150; 
+                            from: 0.1 0.1 0.1; to: 1 1 1"
+        ></a-entity>
+      </a-camera>
+
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="200" height="200" color="#7BC8A4"></a-plane>
+
+      <a-sky color="#ECECEC"></a-sky>
+
+      <a-box id="greenBox" position="2.36849 -0.04253 -3.90536" color="green"></a-box>
+
+      <a-box id="redBox" position="0 -0.03133 -3.32729" color="red"></a-box>
+
+      <a-entity id="heartbeatl" geometry="primitive: plane" material="color: blue"
+      position="-10 0 0" sound="src: url(heartSound1(living).mp3); autoplay: false; loop: true"></a-entity>
+
+      <a-entity
+        id="heartbeatDieing"
+        geometry="primitive: plane"
+        material="color: blue"
+        position="-10 0 0"
+        sound="src: url(heartSound1(Dieing).mp3); autoplay: false"
+      ></a-entity>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // Get the red box element
+          var redBox = document.querySelector("#redBox");
+           // Add click event listener to the red box
+           redBox.addEventListener("click", () => {
+            // Create the audio entity
+            var audioEntity = document.querySelector("#heartbeatDieing");
+
+
+            // Set the position attribute for the audio entity
+            audioEntity.setAttribute("position", redBox.getAttribute("position"));
+
+            // Set autoplay to true
+            audioEntity.components.sound.playSound();
+
+            var livingHeartbeat = document.querySelector("#heartbeatl");
+            livingHeartbeat.components.sound.pauseSound();
+            
+          });
+
+          var greenBox = document.querySelector('#greenBox');
+          greenBox.addEventListener("click", () => {
+            var audio_Entity = document.querySelector("#heartbeatl");
+            audio_Entity.setAttribute("position", redBox.getAttribute("position"));
+            audio_Entity.components.sound.playSound();
+
+            var DieingHeartbeat = document.querySelector("#heartbeatDieing");
+            DieingHeartbeat.components.sound.pauseSound();
+          });
+        });
+      </script>
+    </a-scene>
+  </body>
+</html>
