@@ -40,8 +40,50 @@ document.querySelector(".patient").addEventListener("click",()=>{
 
   function needle(){
       //perform the needle injection animation
-      countdown(4)
-      //remove needle animation
+      //countdown(4)
+      // Get a reference to the needle element
+// Get a reference to the needle element
+const needle = document.querySelector('.holdneedle');
+
+// Define the animation to insert the needle into the patient
+needle.setAttribute('animation__insert', {
+  property: 'position',
+  to: '0.2 0 -0.55', // The position where the needle sticks into the patient
+  dur: 200, // Animation duration in milliseconds
+  easing: 'linear', // Easing function
+});
+
+
+
+// Listen for the 'animationcomplete' event to trigger the removal animation
+needle.addEventListener('animationcomplete', (event) => {
+ 
+  if (event.detail.name === 'animation__insert') {
+    // Animation 'insert' is complete, so trigger the removal animation
+    
+    needle.removeAttribute('animation__insert');
+    
+
+    // Define animation to remove the needle from the patient
+    needle.setAttribute('animation__remove', {
+      property: 'position',
+      to: '0.2 0 -0.45', // The previous position of the needle
+      dur: 200, // Animation duration in milliseconds
+      easing: 'linear', // Easing function
+    });
+
+   
+  }
+});
+
+// Trigger the insertion animation
+
+needle.emit('insert');
+needle.removeAttribute('animation__remove')
+
+
+
+      
   }
   function countdown(seconds) {
     for (let i = seconds; i > 0; i--) {
