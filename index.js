@@ -39,10 +39,8 @@ document.querySelector(".patient").addEventListener("click",()=>{
   }
 
   function needle(){
-      //perform the needle injection animation
-      //countdown(4)
-      // Get a reference to the needle element
-// Get a reference to the needle element
+      
+    //this is the animation of the needle. not that you need to remove the animation everytime you want to make a new animation because afrme sucks
 const needle = document.querySelector('.holdneedle');
 
 // Define the animation to insert the needle into the patient
